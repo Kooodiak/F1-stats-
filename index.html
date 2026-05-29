@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 League Stats Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🏎️ F1 League Stats Dashboard</h1>
+            <p>Track races, winners, standings, drivers, and championships</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-btn active" data-category="f1">F1 Stats</button>
+            <button class="nav-btn" data-category="f2">F2 Stats</button>
+            <button class="nav-btn" data-category="f3">F3 Stats</button>
+            <button class="nav-btn" data-category="drivers">Driver Profiles</button>
+            <button class="nav-btn" data-category="championships">Championships</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- F1 Section -->
+            <section id="f1" class="content-section active">
+                <div class="section-header">
+                    <h2>Formula 1 Statistics</h2>
+                </div>
+                
+                <div class="content-grid">
+                    <!-- Races -->
+                    <div class="card">
+                        <h3>🏁 Races</h3>
+                        <div id="f1-races" class="race-list">
+                            <p class="placeholder">Loading race data...</p>
+                        </div>
+                    </div>
+
+                    <!-- Winners -->
+                    <div class="card">
+                        <h3>🏆 Winners</h3>
+                        <div id="f1-winners" class="winners-list">
+                            <p class="placeholder">Loading winners data...</p>
+                        </div>
+                    </div>
+
+                    <!-- Standings -->
+                    <div class="card full-width">
+                        <h3>📊 Standings</h3>
+                        <div id="f1-standings" class="standings-table">
+                            <p class="placeholder">Loading standings...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- F2 Section -->
+            <section id="f2" class="content-section">
+                <div class="section-header">
+                    <h2>Formula 2 Statistics</h2>
+                </div>
+                
+                <div class="content-grid">
+                    <!-- Races -->
+                    <div class="card">
+                        <h3>🏁 Races</h3>
+                        <div id="f2-races" class="race-list">
+                            <p class="placeholder">Loading race data...</p>
+                        </div>
+                    </div>
+
+                    <!-- Winners -->
+                    <div class="card">
+                        <h3>🏆 Winners</h3>
+                        <div id="f2-winners" class="winners-list">
+                            <p class="placeholder">Loading winners data...</p>
+                        </div>
+                    </div>
+
+                    <!-- Standings -->
+                    <div class="card full-width">
+                        <h3>📊 Standings</h3>
+                        <div id="f2-standings" class="standings-table">
+                            <p class="placeholder">Loading standings...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- F3 Section -->
+            <section id="f3" class="content-section">
+                <div class="section-header">
+                    <h2>Formula 3 Statistics</h2>
+                </div>
+                
+                <div class="content-grid">
+                    <!-- Races -->
+                    <div class="card">
+                        <h3>🏁 Races</h3>
+                        <div id="f3-races" class="race-list">
+                            <p class="placeholder">Loading race data...</p>
+                        </div>
+                    </div>
+
+                    <!-- Winners -->
+                    <div class="card">
+                        <h3>🏆 Winners</h3>
+                        <div id="f3-winners" class="winners-list">
+                            <p class="placeholder">Loading winners data...</p>
+                        </div>
+                    </div>
+
+                    <!-- Standings -->
+                    <div class="card full-width">
+                        <h3>📊 Standings</h3>
+                        <div id="f3-standings" class="standings-table">
+                            <p class="placeholder">Loading standings...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Driver Profiles Section -->
+            <section id="drivers" class="content-section">
+                <div class="section-header">
+                    <h2>Driver Profiles</h2>
+                </div>
+                
+                <div class="drivers-grid" id="drivers-grid">
+                    <p class="placeholder">Loading driver profiles...</p>
+                </div>
+            </section>
+
+            <!-- Championships Section -->
+            <section id="championships" class="content-section">
+                <div class="section-header">
+                    <h2>Championship Winners</h2>
+                </div>
+                
+                <div class="championships-grid" id="championships-grid">
+                    <p class="placeholder">Loading championship data...</p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 F1 League Stats. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
