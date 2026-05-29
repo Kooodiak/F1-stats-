@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initializeDashboard() {
     setupNavigation();
+    setupModalClose();
     renderAllData();
 }
 
@@ -25,6 +26,146 @@ function setupNavigation() {
             switchSection(category);
         });
     });
+}
+
+/**
+ * Setup modal close functionality
+ */
+function setupModalClose() {
+    const modal = document.getElementById('driverModal');
+    const closeBtn = modal.querySelector('.close');
+    
+    closeBtn.addEventListener('click', closeModal);
+    
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+}
+
+/**
+ * Close the modal
+ */
+function closeModal() {
+    const modal = document.getElementById('driverModal');
+    modal.classList.remove('show');
+}
+
+/**
+ * Open driver detail modal
+ */
+function openDriverModal(driverId) {
+    const driver = leagueData.drivers.find(d => d.id === driverId);
+    if (!driver) return;
+    
+    const modal = document.getElementById('driverModal');
+    const modalBody = document.getElementById('modalBody');
+    
+    modalBody.innerHTML = generateDriverDetailHTML(driver);
+    modal.classList.add('show');
+}
+
+/**
+ * Generate driver detail HTML
+ */
+function generateDriverDetailHTML(driver) {
+    let html = `
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <div class="modal-driver-number">${driver.number}</div>
+                <div class="modal-driver-title">
+                    <div class="modal-driver-name">${driver.name}</div>
+                    <div class="modal-driver-team">${driver.team}</div>
+                    <span class="modal-driver-category">${driver.category}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-section">
+            <div class="modal-bio">${driver.bio}</div>
+        </div>
+
+        <div class="modal-section">
+            <div class="modal-section-title">📊 Current Season Statistics</div>
+            <div class="modal-stats">
+                <div class="modal-stat-item">
+                    <div class="modal-stat-label">Points</div>
+                    <div class="modal-stat-value">${driver.points}</div>
+                </div>
+                <div class="modal-stat-item">
+                    <div class="modal-stat-label">Races</div>
+                    <div class="modal-stat-value">${driver.races}</div>
+                </div>
+                <div class="modal-stat-item">
+                    <div class="modal-stat-label">Wins</div>
+                    <div class="modal-stat-value">${driver.wins}</div>
+                </div>
+                <div class="modal-stat-item">
+                    <div class="modal-stat-label">Podiums</div>
+                    <div class="modal-stat-value">${driver.podiums}</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Past Teams Section
+    if (driver.pastTeams && driver.pastTeams.length > 0) {
+        html += `
+            <div class="modal-section">
+                <div class="modal-section-title">🏁 Past Teams & Championships</div>
+                <div class="past-teams-list">
+        `;
+        
+        driver.pastTeams.forEach(team => {
+            html += `
+                <div class="past-team-item">
+                    <div class="team-year">${team.year}</div>
+                    <div class="team-name">${team.team}</div>
+                    <div class="team-position">Position: <strong>${team.position}</strong></div>
+                    <div class="team-points">${team.points} pts</div>
+                </div>
+            `;
+        });
+        
+        html += `
+                </div>
+            </div>
+        `;
+    }
+
+    // Race History Section
+    if (driver.raceHistory && driver.raceHistory.length > 0) {
+        html += `
+            <div class="modal-section">
+                <div class="modal-section-title">🏆 Race History</div>
+                <div class="race-history-list">
+        `;
+        
+        driver.raceHistory.forEach(race => {
+            html += `
+                <div class="race-history-item">
+                    <div>
+                        <div class="race-history-name">${race.race}</div>
+                        <div class="race-history-date">${formatDate(race.date)}</div>
+                    </div>
+                    <div class="race-history-position">
+                        <strong>#${race.position}</strong>
+                    </div>
+                    <div class="race-history-points">
+                        ${race.points} pts
+                    </div>
+                </div>
+            `;
+        });
+        
+        html += `
+                </div>
+            </div>
+        `;
+    }
+
+    return html;
 }
 
 /**
@@ -231,6 +372,12 @@ function renderDriverProfiles() {
                 </div>
             </div>
         `;
+        
+        // Add click event to open modal
+        driverCard.addEventListener('click', function() {
+            openDriverModal(driver.id);
+        });
+        
         container.appendChild(driverCard);
     });
 }
@@ -318,4 +465,15 @@ function addNewDriver(driverData) {
 function addChampionship(championshipData) {
     leagueData.championships.push(championshipData);
     renderChampionships();
+}
+
+/**
+ * Helper function to update driver
+ */
+function updateDriver(driverId, updatedData) {
+    const driver = leagueData.drivers.find(d => d.id === driverId);
+    if (driver) {
+        Object.assign(driver, updatedData);
+        renderDriverProfiles();
+    }
 }
